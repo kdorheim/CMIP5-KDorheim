@@ -47,4 +47,4 @@ categorized_data %>%
 # Save data frames
 data_df %>% 
   bind_rows(fx_df) %>% 
-  write.csv(file = file.path(WRITE_TO, 'cmip6_index.csv'), row.names = FALSE)
+  write.csv(file = file.path(WRITE_TO, 'cmip5_index.csv'), row.names = FALSE)
