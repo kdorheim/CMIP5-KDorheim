@@ -13,7 +13,7 @@ WRITE_TO <- file.path(CMIP_DIR, '../')
 
 # 1. Find Files ---------------------------------------------------------------
 # Find the CMIP5 files. 
-file  <- list.files(path = CMIP_DIR, pattern = '.nc', full.names = TRUE, recursive = TRUE)
+files  <- list.files(path = CMIP_DIR, pattern = '.nc', full.names = TRUE, recursive = TRUE)
 
 # Define the serach pattern for the different file types. 
 month_data_pattern <- '([a-zA-Z0-9-]+)_([a-zA-Z0-9-]+)_([a-zA-Z0-9-]+)_([a-zA-Z0-9-]+)_([a-zA-Z0-9-]+)_([0-9]{6})-([0-9]{6}).nc'
@@ -21,10 +21,10 @@ day_data_pattern   <- '([a-zA-Z0-9-]+)_([a-zA-Z0-9-]+)_([a-zA-Z0-9-]+)_([a-zA-Z0
 hr_data_pattern    <- '([a-zA-Z0-9-]+)_([a-zA-Z0-9-]+)_([a-zA-Z0-9-]+)_([a-zA-Z0-9-]+)_([a-zA-Z0-9-]+)_([0-9]{12})-([0-9]{12}).nc'
 subHr_data_pattern <- '([a-zA-Z0-9-]+)_([a-zA-Z0-9-]+)_([a-zA-Z0-9-]+)_([a-zA-Z0-9-]+)_([a-zA-Z0-9-]+)_([0-9]{14})-([0-9]{14}).nc'
 data_pattern       <- paste(month_data_pattern, day_data_pattern, hr_data_pattern, subHr_data_pattern, sep = '|')
-fx_pattern         <- '([a-zA-Z0-9-]+)_fx_([a-zA-Z0-9-]+)_([a-zA-Z0-9-]+)_([a-zA-Z0-9-]+)_([a-zA-Z0-9-]+).nc'
+fx_pattern         <- '([a-zA-Z0-9-]+)_fx_([a-zA-Z0-9-]+)_([a-zA-Z0-9-]+)_([a-zA-Z0-9-]+).nc'
 
 # Categorize the files by the file type.
-tibble(file = file) %>%  
+tibble(file = files) %>%  
   mutate(type = if_else(grepl(pattern = data_pattern, x = file), 'data', 'NA')) %>%  
   mutate(type = if_else(grepl(pattern = fx_pattern, x = file), 'fx', type)) -> 
   categorized_data 
